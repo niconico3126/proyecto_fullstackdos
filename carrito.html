@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+    }
+    header {
+      background: #fff;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #0073e6;
+      font-weight: bold;
+    }
+    main {
+      padding: 40px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+    .cart-container {
+      display: flex;
+      gap: 40px;
+    }
+    .cart-items {
+      flex: 2;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .cart-item img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .cart-item-info {
+      flex: 1;
+      margin-left: 20px;
+    }
+    .cart-item-info h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+    .price {
+      font-weight: bold;
+      margin: 0 15px;
+    }
+    .quantity {
+      display: flex;
+      align-items: center;
+    }
+    .quantity button {
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    .quantity input {
+      width: 40px;
+      text-align: center;
+      border: 1px solid #ccc;
+      margin: 0 5px;
+      padding: 5px;
+    }
+    .cart-summary {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .cart-summary h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .cart-summary .total {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .cart-summary input {
+      width: calc(100% - 90px);
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .cart-summary button {
+      width: 100%;
+      padding: 12px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .cart-summary button:hover {
+      background: #218838;
+    }
+    .apply-btn {
+      padding: 8px 15px;
+      margin-left: 5px;
+      background: #ddd;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="images/logohuerto.PNG" alt="Logo" style="height:50px;">
+    </a>
+    <nav>
+      <a href="index.html">Inicio</a>|
+      <a href="productos.html">Productos</a>|
+      <a href="informacion.html">Nosotros</a>|
+      <a href="blog.html">Blogs</a>|
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Mi carrito de compras</h1>
+    <div class="cart-container">
+      <div class="cart-items">
+
+  <div id="cart-items"></div>
+</div>
+
+      <div class="cart-summary">
+        <h2>TOTAL:</h2>
+        <div class="total" id="cartTotal">$ 0</div>
+        <div>
+          <input type="text" placeholder="Ingrese el cupón de descuento">
+          <button class="apply-btn">APLICAR</button>
+        </div>
+        <button>PAGAR</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    function mostrarCarrito() {
+      const contenedor = document.getElementById("cartItems");
+      contenedor.innerHTML = "";
+      let total = 0;
+
+      carrito.forEach((item, index) => {
+        total += item.precio * item.cantidad;
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+          <img src="${item.imagen}" alt="${item.nombre}">
+          <div class="cart-item-info">
+            <h3>${item.nombre}</h3>
+          </div>
+          <div class="price">$ ${item.precio}</div>
+          <div class="quantity">
+            <button onclick="cambiarCantidad(${index}, -1)">-</button>
+            <input type="text" value="${item.cantidad}" readonly>
+            <button onclick="cambiarCantidad(${index}, 1)">+</button>
+          </div>
+        `;
+        contenedor.appendChild(div);
+      });
+
+      document.getElementById("cartTotal").textContent = "$ " + total;
+    }
+
+    function cambiarCantidad(index, cambio) {
+      carrito[index].cantidad += cambio;
+      if (carrito[index].cantidad <= 0) {
+        carrito.splice(index, 1);
+      }
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    mostrarCarrito();
+  </script>
+
+  <script>
+  function renderCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("cart-items");
+    const totalEl = document.querySelector(".total");
+
+    container.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price * item.quantity;
+
+      container.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.img}" alt="${item.name}">
+          <div class="cart-item-info">
+            <h3>${item.name}</h3>
+          </div>
+          <div class="price">$ ${item.price.toLocaleString()}</div>
+          <div class="quantity">
+            <button onclick="updateQuantity(${index}, -1)">-</button>
+            <input type="text" value="${item.quantity}" readonly>
+            <button onclick="updateQuantity(${index}, 1)">+</button>
+          </div>
+        </div>
+      `;
+    });
+
+    totalEl.innerText = `$ ${total.toLocaleString()}`;
+  }
+
+  function updateQuantity(index, change) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) {
+      cart.splice(index, 1); 
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+</script>
+</body>
+</html>

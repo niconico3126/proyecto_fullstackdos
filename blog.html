@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog - HuertoHogar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: url("images/fondo.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+    }
+    header img {
+      height: 50px;
+    }
+    .blog-container {
+      max-width: 800px;
+      margin: 100px auto 50px auto;
+      padding: 0 20px;
+    }
+    .post {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .post img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .post-content {
+      flex: 1;
+    }
+    .post-content h3 {
+      margin-top: 0;
+    }
+    .post-content p.date {
+      color: gray;
+      font-size: 0.9em;
+      margin: 5px 0;
+    }
+    .post-content p.description {
+      margin: 10px 0;
+    }
+    .post-content a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .post-content a:hover {
+      text-decoration: underline;
+    }
+    .btn-back {
+      display: block;
+      width: max-content;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #ccc;
+      color: #333;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn-back:hover {
+      background: #b3b3b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="images/logohuerto.PNG" alt="HuertoHogar Logo">
+    </a>
+  </header>
+
+  <div class="blog-container">
+    <div class="post">
+      <img src="images/verdurasfrescas.jpg" alt="Verduras Frescas">
+      <div class="post-content">
+        <h3>5 Tips para Mantener Tus Verduras Frescas</h3>
+        <p class="date">Publicado el 1 de septiembre, 2025</p>
+        <p class="description">Descubre cómo conservar tus verduras frescas por más tiempo y disfrutar de su sabor natural directamente en tu mesa.</p>
+        <a href="blog1.html">Leer más</a>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="images/organicos.jpg" alt="Productos Orgánicos">
+      <div class="post-content">
+        <h3>Beneficios de Consumir Productos Orgánicos</h3>
+        <p class="date">Publicado el 15 de agosto, 2025</p>
+        <p class="description">Conoce los beneficios de incluir alimentos orgánicos en tu dieta y cómo HuertoHogar facilita el acceso a ellos.</p>
+        <a href="blog2.html">Leer más</a>
+      </div>
+    </div>
+
+    <div class="post">
+      <img src="images/locales.jpg" alt="Productores Locales">
+      <div class="post-content">
+        <h3>Conociendo a Nuestros Productores Locales</h3>
+        <p class="date">Publicado el 30 de julio, 2025</p>
+        <p class="description">Te contamos la historia de los agricultores que hacen posible que recibas productos frescos y de calidad en tu hogar.</p>
+        <a href="#">Leer más</a>
+      </div>
+    </div>
+
+    <a class="btn-back" href="index.html">Volver al Inicio</a>
+  </div>
+</body>
+</html>

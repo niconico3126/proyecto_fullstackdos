@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - HuertoHogar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("images/fondo.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 50px;
+    }
+    .register-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+      margin-top: 80px;
+    }
+    .register-box h2 {
+      margin-bottom: 20px;
+    }
+    .register-box input,
+    .register-box select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .register-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .btn-register {
+      background: #4CAF50;
+      color: white;
+    }
+    .btn-register:hover {
+      background: #45a049;
+    }
+    .btn-back {
+      background: #ccc;
+      color: #333;
+    }
+    .btn-back:hover {
+      background: #b3b3b3;
+    }
+    .mensaje {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="images/logohuerto.PNG" alt="HuertoHogar Logo">
+    </a>
+  </header>
+
+  <div class="register-box">
+    <h2>Registro de Usuario</h2>
+    <form id="registerForm">
+      <input type="text" id="run" placeholder="RUN (Ej: 19011022K)" required>
+      <input type="text" id="nombre" placeholder="Nombre" maxlength="50" required>
+      <input type="text" id="apellidos" placeholder="Apellidos" maxlength="100" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" maxlength="100" required>
+      <input type="password" id="clave" placeholder="Contraseña (4-10 caracteres)" minlength="4" maxlength="10" required>
+      <input type="password" id="confirmar" placeholder="Confirmar contraseña" minlength="4" maxlength="10" required>
+      <input type="text" id="direccion" placeholder="Dirección" maxlength="300" required>
+
+      <select id="region" required>
+        <option value="">-- Seleccione la región --</option>
+        <option>Región Metropolitana de Santiago</option>
+        <option>Región de Valparaíso</option>
+        <option>Región del Biobío</option>
+        <option>Región de La Araucanía</option>
+      </select>
+      
+      <select id="comuna" required>
+        <option value="">-- Seleccione la comuna --</option>
+        <option>Santiago</option>
+        <option>Puente Alto</option>
+        <option>Maipú</option>
+        <option>Providencia</option>
+        <option>La Florida</option>
+      </select>
+      
+      <button type="submit" class="btn-register">Registrar</button>
+      <button type="button" class="btn-back" onclick="window.location.href='login.html'">Volver al Login</button>
+    </form>
+    <p class="mensaje" id="mensaje"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const run = document.getElementById("run").value.trim();
+      const nombre = document.getElementById("nombre").value.trim();
+      const apellidos = document.getElementById("apellidos").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+      const clave = document.getElementById("clave").value.trim();
+      const confirmar = document.getElementById("confirmar").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const region = document.getElementById("region").value;
+      const comuna = document.getElementById("comuna").value;
+
+      const runRegex = /^[0-9]{7,8}[0-9Kk]{1}$/;
+      if (!runRegex.test(run)) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "RUN inválido. Ejemplo válido: 19011022K";
+        return;
+      }
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
+      if (!emailRegex.test(correo)) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "Correo inválido. Solo se aceptan @duoc.cl, @profesor.duoc.cl o @gmail.com";
+        return;
+      }
+
+      if (clave.length < 4 || clave.length > 10) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "La contraseña debe tener entre 4 y 10 caracteres";
+        return;
+      }
+
+      if (clave !== confirmar) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "Las contraseñas no coinciden";
+        return;
+      }
+
+      if (direccion.length === 0 || direccion.length > 300) {
+        mensaje.style.color = "red";
+        mensaje.textContent = "La dirección es obligatoria (máx. 300 caracteres)";
+        return;
+      }
+
+      if (region === "" || comuna === "") {
+        mensaje.style.color = "red";
+        mensaje.textContent = "Debe seleccionar región y comuna";
+        return;
+      }
+
+      mensaje.style.color = "green";
+      mensaje.textContent = "Registro exitoso";
+    });
+  </script>
+</body>
+</html>

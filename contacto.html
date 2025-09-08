@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacto - HuertoHogar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("images/fondo.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header img {
+      height: 50px;
+    }
+    .contact-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+      margin-top: 80px;
+    }
+    .contact-box h2 {
+      margin-bottom: 20px;
+    }
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .contact-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .btn-send {
+      background: #4CAF50;
+      color: white;
+    }
+    .btn-send:hover {
+      background: #45a049;
+    }
+    .btn-back {
+      background: #ccc;
+      color: #333;
+    }
+    .btn-back:hover {
+      background: #b3b3b3;
+    }
+    .mensaje {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">
+      <img src="images/logohuerto.PNG" alt="HuertoHogar Logo">
+    </a>
+  </header>
+
+  <div class="contact-box">
+    <h2>Contacto</h2>
+    <form id="contactForm">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <input type="tel" id="telefono" placeholder="Teléfono (opcional)">
+      <textarea id="mensajeInput" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+      
+      <button type="submit" class="btn-send">Enviar</button>
+      <button type="button" class="btn-back" onclick="window.location.href='index.html'">Volver al Inicio</button>
+    </form>
+    <p class="mensaje" id="mensaje"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      mensaje.style.color = "green";
+      mensaje.textContent = "Mensaje enviado exitosamente";
+    });
+  </script>
+</body>
+</html>
